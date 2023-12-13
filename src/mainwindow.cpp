@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    InitUi();
+    InitConnect();
 }
 
 MainWindow::~MainWindow()
@@ -13,3 +16,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::InitUi()
+{
+    setWindowTitle("FFmpegBox");
+
+}
+
+void MainWindow::InitConnect()
+{}

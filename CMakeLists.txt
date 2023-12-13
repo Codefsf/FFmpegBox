@@ -37,6 +37,9 @@ if(WIN32)
         src/mainwindow.cpp
         src/mainwindow.h
         src/mainwindow.ui
+
+        src/ffmpeg-filter.cpp
+        src/ffmpeg-filter.h
     )
     source_group("" FILES ${global})
 
