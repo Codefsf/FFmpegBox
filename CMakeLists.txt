@@ -14,7 +14,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Widgets  REQUIRED)
+set(CMAKE_PREFIX_PATH "D:/Qt/6.6.1/msvc2019_64/lib/cmake")
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 if(WIN32)
     message("include os:win32")
@@ -31,10 +33,10 @@ if(WIN32)
     message("os:win32")
 
     FILE(GLOB global
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        src/main.cpp
+        src/mainwindow.cpp
+        src/mainwindow.h
+        src/mainwindow.ui
     )
     source_group("" FILES ${global})
 
@@ -66,7 +68,7 @@ if(WIN32)
     )
 
     target_link_libraries(${PROJECT_NAME} PRIVATE 
-        Qt5::Widgets
+        Qt6::Widgets
         avfilter
         swscale
         avcodec
