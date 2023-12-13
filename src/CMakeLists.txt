@@ -13,15 +13,34 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets  REQUIRED)
 
+if(WIN32)
+    message("include os:win32")
+    
+elseif(Unix)
+    message("include os:unix")
+elseif(APPLE)
+    message("include os:mac")
+endif()
+
+
 #不同平台源文件
 if(WIN32)
     message("os:win32")
-    add_executable(${PROJECT_NAME}
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-  )
+
+    FILE(GLOB global
+        main.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
+    )
+    source_group("" FILES ${global})
+
+    set(ALL_SOURCE_FILES
+        ${global}
+    )
+
+    #生成目标文件
+    add_executable(${PROJECT_NAME} ${ALL_SOURCE_FILES})
 elseif(Unix)
     message("os:unix")
 elseif(APPLE)
@@ -31,7 +50,30 @@ endif()
 #不同平台依赖库
 if(WIN32)
     message("link os:win32")
-    target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
+    include_directories(
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavcodec
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavdevice
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavfilter
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavformat
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavutil
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libswresample
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libswscale
+    )
+
+    target_link_directories(${PROJECT_NAME} PRIVATE
+        "${PROJECT_SOURCE_DIR}/incoming/ffmpeg/libs/"
+    )
+
+    target_link_libraries(${PROJECT_NAME} PRIVATE 
+        Qt5::Widgets
+        avfilter
+        swscale
+        avcodec
+        avdevice
+        avformat
+        avutil
+        swresample
+    )
 elseif(Unix)
     message("link os:unix")
 elseif(APPLE)
