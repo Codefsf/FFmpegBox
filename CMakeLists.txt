@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 
 project(FFmpegBox LANGUAGES CXX)
 
+set(CMAKE_GENERATOR_PLATFORM x64)
+set(CMAKE_GENERATOR_TOOLSET x64)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -50,15 +53,13 @@ endif()
 #不同平台依赖库
 if(WIN32)
     message("link os:win32")
+
     include_directories(
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavcodec
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavdevice
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavfilter
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavformat
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libavutil
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libswresample
-        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/libswscale
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/
+        ${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/
     )
+    message("include dir:${PROJECT_SOURCE_DIR}/incoming/ffmpeg/include/")
+
 
     target_link_directories(${PROJECT_NAME} PRIVATE
         "${PROJECT_SOURCE_DIR}/incoming/ffmpeg/libs/"
