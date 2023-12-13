@@ -15,8 +15,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "D:/Qt/6.6.1/msvc2019_64/lib/cmake")
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Qml Core)
 
 if(WIN32)
     message("include os:win32")
@@ -27,6 +26,11 @@ elseif(APPLE)
     message("include os:mac")
 endif()
 
+#添加Qt resource
+qt6_add_resources(QRC_WRAPPERS
+    ${PROJECT_SOURCE_DIR}/res/res.qrc
+)
+message("res dir:${PROJECT_SOURCE_DIR}/res/res.qrc")
 
 #不同平台源文件
 if(WIN32)
@@ -48,7 +52,7 @@ if(WIN32)
     )
 
     #生成目标文件
-    add_executable(${PROJECT_NAME} ${ALL_SOURCE_FILES})
+    add_executable(${PROJECT_NAME} ${ALL_SOURCE_FILES} ${QRC_WRAPPERS})
 elseif(Unix)
     message("os:unix")
 elseif(APPLE)
@@ -72,6 +76,7 @@ if(WIN32)
 
     target_link_libraries(${PROJECT_NAME} PRIVATE 
         Qt6::Widgets
+        Qt6::Qml
         avfilter
         swscale
         avcodec

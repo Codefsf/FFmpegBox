@@ -18,7 +18,7 @@ public:
     FFmpegFilter();
     ~FFmpegFilter();
 
-    void Init(std::string filterDescr);
+    void Init(const std::string& filter_desc);
     void Uninit();
 
     void SetInput(AVFrame *frame);

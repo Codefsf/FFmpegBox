@@ -17,8 +17,13 @@ FFmpegFilter::~FFmpegFilter()
     Uninit();
 }
 
-void FFmpegFilter::Init(std::string filterDescr)
+void FFmpegFilter::Init(const std::string& filter_desc)
 {
+    
+
+
+    
+    
 
 }
 
