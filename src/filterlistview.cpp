@@ -1,4 +1,5 @@
 #include "filterlistview.h"
+#include "ffmpegfilter.h"
 
 #include <QListWidget>
 #include <QListWidgetItem>
@@ -6,7 +7,6 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 
-//FilterListModel---------------------------------------------------------------------
 void FilterListModel::AddItem(const FilterItem& item) {
     m_items.append(item);
 }
@@ -15,11 +15,23 @@ int FilterListModel::GetCount() const {
     return m_items.size();
 }
 
-QList<FilterItem> FilterListModel::GetItems() const {
+QList<FilterItem> FilterListModel::GetItems() {
+    if (!m_items.isEmpty()) {
+        return m_items;
+    }
+
+    auto filtersList = FFmpegFilter::GetAllFilter();
+    for (auto& filter : filtersList) {
+        FilterItem item;
+        item.name = QString::fromStdString(filter);
+        item.description = QString::fromStdString(filter);
+
+        m_items.append(item);
+    }
+
     return m_items;
 }
 
-//FilterListView---------------------------------------------------------------------
 FilterListView::FilterListView(QWidget *parent)
     : QWidget(parent)
 {

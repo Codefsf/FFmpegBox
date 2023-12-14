@@ -16,7 +16,7 @@ public:
     void AddItem(const FilterItem& item);
 
     int GetCount() const;
-    QList<FilterItem> GetItems() const;
+    QList<FilterItem> GetItems();
 
 private:
     QList<FilterItem> m_items;
