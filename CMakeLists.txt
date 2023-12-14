@@ -44,6 +44,9 @@ if(WIN32)
 
         src/ffmpeg-filter.cpp
         src/ffmpeg-filter.h
+
+        src/filter-list-view.h
+        src/filter-list-view.cpp
     )
     source_group("" FILES ${global})
 
@@ -76,7 +79,6 @@ if(WIN32)
 
     target_link_libraries(${PROJECT_NAME} PRIVATE 
         Qt6::Widgets
-        Qt6::Qml
         avfilter
         swscale
         avcodec
