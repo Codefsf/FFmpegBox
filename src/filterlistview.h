@@ -24,6 +24,25 @@ private:
     QList<FilterItem> m_items;
 };
 
+class FilterListItem : public QWidget
+{
+    Q_OBJECT
+
+public:
+    FilterListItem(QWidget *parent = nullptr);
+    ~FilterListItem();
+
+    void setItemName(const QString& name);
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+
+private:
+    QPoint  m_dragPosition  = QPoint();
+    QString m_name;
+};
+
 class FilterListView : public QWidget
 {
     Q_OBJECT
@@ -35,15 +54,12 @@ public:
     void SetModel(const FilterListModel& model);
     void InitUi();
 
-protected:
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
+
 
 private:
     void addItem(const FilterItem& item);
     
 private:
     QListWidget* m_listWidget   = nullptr;
-    QPoint      m_dragPosition  = QPoint();
     FilterListModel m_model;
 };
