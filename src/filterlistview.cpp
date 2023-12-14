@@ -38,10 +38,10 @@ void FilterListView::SetModel(const FilterListModel& model) {
 
 void FilterListView::InitUi() {
     this->setFixedWidth(200);
-
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     m_listWidget = new QListWidget(this);
+    m_listWidget->setStyleSheet("border: 0px;");
 
     QWidget* customWidget = new QWidget();
     QHBoxLayout* layout = new QHBoxLayout();
@@ -56,4 +56,8 @@ void FilterListView::InitUi() {
 
     m_listWidget->addItem(item);
     m_listWidget->setItemWidget(item, customWidget);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);  // 创建一个新的布局
+    mainLayout->addWidget(m_listWidget);  // 将m_listWidget添加到布局中
+    this->setLayout(mainLayout);  // 将布局设置为FilterListView的布局
 }
