@@ -1,4 +1,6 @@
 #include <QWidget>
+#include <QPoint>
+#include <QMouseEvent>
 
 class QListWidget;
 
@@ -33,10 +35,15 @@ public:
     void SetModel(const FilterListModel& model);
     void InitUi();
 
+protected:
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+
 private:
     void addItem(const FilterItem& item);
     
 private:
     QListWidget* m_listWidget   = nullptr;
+    QPoint      m_dragPosition  = QPoint();
     FilterListModel m_model;
 };

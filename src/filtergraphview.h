@@ -10,6 +10,10 @@ public:
 
     void InitUi();
 
+protected:
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
+
 private:
     QWidget* m_graphWidget = nullptr;
 };

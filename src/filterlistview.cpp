@@ -6,6 +6,10 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QDrag>
+#include <QMimeData>
+#include <QApplication>
 
 void FilterListModel::AddItem(const FilterItem& item) {
     m_items.append(item);
@@ -41,6 +45,27 @@ FilterListView::~FilterListView()
 {
 }
 
+void FilterListView::mousePressEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton)
+        m_dragPosition = event->pos();
+}
+
+void FilterListView::mouseMoveEvent(QMouseEvent* event) {
+    if (!(event->buttons() & Qt::LeftButton))
+        return;
+    if ((event->pos() - m_dragPosition).manhattanLength()
+         < QApplication::startDragDistance())
+        return;
+
+    QDrag *drag = new QDrag(this);
+    QMimeData *mimeData = new QMimeData;
+
+    mimeData->setText("This is a test."); // 这里你可以设置你想要传递的数据
+    drag->setMimeData(mimeData);
+
+    drag->exec(Qt::CopyAction | Qt::MoveAction);
+}
+
 void FilterListView::SetModel(const FilterListModel& model) {
     m_model = model;    
 }
@@ -58,6 +83,10 @@ void FilterListView::InitUi() {
     for(auto& item : m_model.GetItems()) {
         addItem(item);
     } 
+
+    QLabel* label = new QLabel(QString("Total: %1").arg(m_model.GetCount()));
+    label->setAlignment(Qt::AlignCenter);
+    mainLayout->addWidget(label);
 }
 
 void FilterListView::addItem(const FilterItem& item) {
