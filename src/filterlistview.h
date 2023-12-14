@@ -34,6 +34,9 @@ public:
     void InitUi();
 
 private:
+    void addItem(const FilterItem& item);
+    
+private:
     QListWidget* m_listWidget   = nullptr;
     FilterListModel m_model;
 };

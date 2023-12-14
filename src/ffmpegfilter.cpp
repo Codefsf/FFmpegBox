@@ -17,14 +17,20 @@ FFmpegFilter::~FFmpegFilter()
     Uninit();
 }
 
+std::vector<std::string> FFmpegFilter::GetAllFilter()
+{
+    std::vector<std::string> filters;
+    const AVFilter* filter = nullptr;
+    void* opaque = nullptr;
+    while ((filter = av_filter_iterate(&opaque)))
+    {
+        filters.push_back(filter->name);
+    }
+    return filters;
+}
+
 void FFmpegFilter::Init(const std::string& filter_desc)
 {
-    
-
-
-    
-    
-
 }
 
 void FFmpegFilter::Uninit()

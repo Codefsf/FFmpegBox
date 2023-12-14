@@ -11,12 +11,15 @@ extern "C"
 }
 
 #include <string>
+#include <vector>
 
 class FFmpegFilter
 {
 public:
     FFmpegFilter();
     ~FFmpegFilter();
+
+    static std::vector<std::string> GetAllFilter();
 
     void Init(const std::string& filter_desc);
     void Uninit();

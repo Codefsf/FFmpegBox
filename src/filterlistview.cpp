@@ -19,8 +19,6 @@ QList<FilterItem> FilterListModel::GetItems() const {
     return m_items;
 }
 
-
-
 //FilterListView---------------------------------------------------------------------
 FilterListView::FilterListView(QWidget *parent)
     : QWidget(parent)
@@ -30,7 +28,6 @@ FilterListView::FilterListView(QWidget *parent)
 FilterListView::~FilterListView()
 {
 }
-
 
 void FilterListView::SetModel(const FilterListModel& model) {
     m_model = model;    
@@ -42,22 +39,36 @@ void FilterListView::InitUi() {
 
     m_listWidget = new QListWidget(this);
     m_listWidget->setStyleSheet("border: 0px;");
+    QVBoxLayout* mainLayout = new QVBoxLayout(this); 
+    mainLayout->addWidget(m_listWidget); 
+    this->setLayout(mainLayout); 
 
+    for(auto& item : m_model.GetItems()) {
+        addItem(item);
+    } 
+}
+
+void FilterListView::addItem(const FilterItem& item) {
+    if (m_listWidget == nullptr)
+    {
+        return;
+    }
+
+    if (item.name.isEmpty())
+    {
+        return;
+    }
+    
     QWidget* customWidget = new QWidget();
     QHBoxLayout* layout = new QHBoxLayout();
-    QLabel* label = new QLabel("Item 1");
-    QPushButton* button = new QPushButton("Button");
+
+    QLabel* label = new QLabel(item.name);
     layout->addWidget(label);
-    layout->addWidget(button);
     customWidget->setLayout(layout);
 
-    QListWidgetItem* item = new QListWidgetItem();
-    item->setSizeHint(customWidget->sizeHint());
+    QListWidgetItem* list_item = new QListWidgetItem();
+    list_item->setSizeHint(customWidget->sizeHint());
 
-    m_listWidget->addItem(item);
-    m_listWidget->setItemWidget(item, customWidget);
-
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);  // 创建一个新的布局
-    mainLayout->addWidget(m_listWidget);  // 将m_listWidget添加到布局中
-    this->setLayout(mainLayout);  // 将布局设置为FilterListView的布局
+    m_listWidget->addItem(list_item);
+    m_listWidget->setItemWidget(list_item, customWidget);
 }
