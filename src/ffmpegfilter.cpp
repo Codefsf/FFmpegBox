@@ -1,4 +1,4 @@
-#include "ffmpeg-filter.h"
+#include "ffmpegfilter.h"
 
 FFmpegFilter::FFmpegFilter()
 {

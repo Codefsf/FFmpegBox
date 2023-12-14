@@ -1,4 +1,4 @@
-#include "filter-list-view.h"
+#include "filterlistview.h"
 
 #include <QListWidget>
 #include <QListWidgetItem>
@@ -37,6 +37,9 @@ void FilterListView::SetModel(const FilterListModel& model) {
 }
 
 void FilterListView::InitUi() {
+    this->setFixedWidth(200);
+    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
     m_listWidget = new QListWidget(this);
 
     QWidget* customWidget = new QWidget();
@@ -52,6 +55,4 @@ void FilterListView::InitUi() {
 
     m_listWidget->addItem(item);
     m_listWidget->setItemWidget(item, customWidget);
-
-    m_listWidget->setGeometry(10, 10, 200, 300);
 }

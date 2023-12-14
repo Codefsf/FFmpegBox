@@ -42,11 +42,14 @@ if(WIN32)
         src/mainwindow.h
         src/mainwindow.ui
 
-        src/ffmpeg-filter.cpp
-        src/ffmpeg-filter.h
+        src/ffmpegfilter.cpp
+        src/ffmpegfilter.h
 
-        src/filter-list-view.h
-        src/filter-list-view.cpp
+        src/filterlistview.h
+        src/filterlistview.cpp
+
+        src/filtergraphview.h
+        src/filtergraphview.cpp
     )
     source_group("" FILES ${global})
 
