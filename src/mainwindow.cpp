@@ -27,27 +27,24 @@ void MainWindow::InitUi()
     setWindowTitle("FFmpegBox");
     setMinimumSize(800, 600);
 
-    QHBoxLayout* hLayout = new QHBoxLayout();
+    QHBoxLayout* hLayout = new QHBoxLayout(ui->centralwidget);
 
-    FilterListView* filterListView = new FilterListView();
+    FilterListView* filterListView = new FilterListView(ui->centralwidget);
     filterListView->InitUi();
+
     hLayout->addWidget(filterListView);
 
-    filterListView->setStyleSheet("background-color: red;");
-
-    QFrame* line = new QFrame();
+    QFrame* line = new QFrame(ui->centralwidget);
     line->setFrameShape(QFrame::VLine);  
     line->setFrameShadow(QFrame::Sunken);
     line->setLineWidth(1);
     hLayout->addWidget(line); 
 
-    FilterGraphView* filterGraphView = new FilterGraphView();
+    FilterGraphView* filterGraphView = new FilterGraphView(ui->centralwidget);
     filterGraphView->InitUi();
     hLayout->addWidget(filterGraphView);
 
     filterGraphView->setStyleSheet("background-color: blue;");
-
-    ui->centralwidget->setLayout(hLayout);
 }
 
 void MainWindow::InitConnect()
