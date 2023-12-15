@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 
 class QListWidget;
+class QLabel;
 
 struct FilterItem {
     QString name;
@@ -54,11 +55,14 @@ public:
     void SetModel(const FilterListModel& model);
     void InitUi();
 
-
+private slots:
+    void onSearchTextChanged(const QString& text);
+    void onSearchButtonClicked();
 
 private:
     void addItem(const FilterItem& item);
-    
+    QLabel* createLabel(const QString& text);
+
 private:
     QListWidget* m_listWidget   = nullptr;
     FilterListModel m_model;

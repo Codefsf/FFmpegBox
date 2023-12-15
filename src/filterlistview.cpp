@@ -10,6 +10,7 @@
 #include <QDrag>
 #include <QMimeData>
 #include <QApplication>
+#include <QLineEdit>
 
 //----------FilterListModel----------
 void FilterListModel::AddItem(const FilterItem& item) {
@@ -88,35 +89,69 @@ void FilterListView::SetModel(const FilterListModel& model) {
 }
 
 void FilterListView::InitUi() {
-    this->setFixedWidth(200);
-    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    setFixedWidth(200);
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
+    auto mainLayout = new QVBoxLayout(this);
+
+    auto searchLayout = new QHBoxLayout();
+
+    auto searchInput = new QLineEdit(this);
+    connect(searchInput, &QLineEdit::returnPressed, this, &FilterListView::onSearchButtonClicked);
+    searchLayout->addWidget(searchInput);
+
+    auto searchButton = new QPushButton("Search", this);
+    connect(searchButton, &QPushButton::clicked, this, &FilterListView::onSearchButtonClicked);
+    searchLayout->addWidget(searchButton);
+
+    mainLayout->addLayout(searchLayout);
 
     m_listWidget = new QListWidget(this);
     m_listWidget->setStyleSheet("border: 0px;");
-    QVBoxLayout* mainLayout = new QVBoxLayout(this); 
-    mainLayout->addWidget(m_listWidget); 
-    this->setLayout(mainLayout); 
+    mainLayout->addWidget(m_listWidget);
 
     for(auto& item : m_model.GetItems()) {
         addItem(item);
-    } 
+    }
 
-    QLabel* label = new QLabel(QString("Total: %1").arg(m_model.GetCount()));
+    QLabel *label = new QLabel(QString("Total: %1").arg(m_model.GetCount()), this);
     label->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(label);
+
+    setLayout(mainLayout);
+}
+
+QLabel* FilterListView::createLabel(const QString& text) {
+    auto label = new QLabel(text);
+    label->setAlignment(Qt::AlignCenter);
+    return label;
+}
+
+void FilterListView::onSearchTextChanged(const QString& text) {
+    qDebug() << "onSearchTextChanged: " << text;
+
+    m_listWidget->clear();
+
+    for(auto& item : m_model.GetItems()) {
+        if (item.name.contains(text, Qt::CaseInsensitive)) {
+            addItem(item);
+        }
+    }
+}
+
+void FilterListView::onSearchButtonClicked() {
+    auto searchInput = findChild<QLineEdit*>();
+    if (searchInput) {
+        onSearchTextChanged(searchInput->text());
+    }
 }
 
 void FilterListView::addItem(const FilterItem& item) {
-    if (m_listWidget == nullptr)
-    {
-        return;
-    }
-
     if (item.name.isEmpty())
     {
         return;
     }
-    
+
     FilterListItem* customWidget = new FilterListItem();
     QHBoxLayout* layout = new QHBoxLayout();
 

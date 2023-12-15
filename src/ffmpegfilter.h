@@ -8,6 +8,7 @@ extern "C"
     #include "libavutil/imgutils.h"
     #include "libswscale/swscale.h"
     #include "libavfilter/avfilter.h"
+    #include "libavutil/time.h"
 }
 
 #include <string>

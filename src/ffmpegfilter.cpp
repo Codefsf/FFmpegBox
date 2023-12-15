@@ -1,5 +1,7 @@
 #include "ffmpegfilter.h"
 
+#include <iostream>
+
 FFmpegFilter::FFmpegFilter()
 {
     filterGraph = nullptr;
@@ -22,10 +24,12 @@ std::vector<std::string> FFmpegFilter::GetAllFilter()
     std::vector<std::string> filters;
     const AVFilter* filter = nullptr;
     void* opaque = nullptr;
+
     while ((filter = av_filter_iterate(&opaque)))
     {
         filters.push_back(filter->name);
     }
+
     return filters;
 }
 
