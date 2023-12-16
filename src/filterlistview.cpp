@@ -48,32 +48,36 @@ FilterListItem::~FilterListItem()
 {
 }
 
-void FilterListItem::setItemName(const QString& name) {
+void FilterListItem::setItemName(const QString &name)
+{
     m_name = name;
 }
 
-void FilterListItem::mousePressEvent(QMouseEvent* event) {
+void FilterListItem::mousePressEvent(QMouseEvent *event)
+{
     if (event->button() == Qt::LeftButton)
         m_dragPosition = event->pos();
 }
 
-void FilterListItem::mouseMoveEvent(QMouseEvent* event) {
-    if (!(event->buttons() & Qt::LeftButton))
-        return;
-    if ((event->pos() - m_dragPosition).manhattanLength()
-         < QApplication::startDragDistance())
-        return;
-
-    QDrag *drag = new QDrag(this);
-    QMimeData *mimeData = new QMimeData;
-
-    mimeData->setText(m_name);
-    drag->setMimeData(mimeData);
-
-    drag->exec(Qt::CopyAction | Qt::MoveAction);
+void FilterListItem::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton)
+    {
+        int distance = (event->pos() - m_dragPosition).manhattanLength();
+        if (distance >= QApplication::startDragDistance())
+            startDrag();
+    }
 }
 
+void FilterListItem::startDrag()
+{
+    QMimeData *mimeData = new QMimeData;
+    mimeData->setText(m_name); 
 
+    QDrag *drag = new QDrag(this);
+    drag->setMimeData(mimeData);
+    drag->exec(Qt::CopyAction | Qt::MoveAction);
+}
 //----------FilterListView----------
 FilterListView::FilterListView(QWidget *parent)
     : QWidget(parent)
@@ -130,6 +134,15 @@ QLabel* FilterListView::createLabel(const QString& text) {
 void FilterListView::onSearchTextChanged(const QString& text) {
     qDebug() << "onSearchTextChanged: " << text;
 
+    if (text.isEmpty())
+    {
+        m_listWidget->clear();
+        for(auto& item : m_model.GetItems()) {
+            addItem(item);
+        }
+        return;
+    }
+    
     m_listWidget->clear();
 
     for(auto& item : m_model.GetItems()) {

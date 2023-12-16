@@ -43,8 +43,6 @@ void MainWindow::InitUi()
     FilterGraphView* filterGraphView = new FilterGraphView(ui->centralwidget);
     filterGraphView->InitUi();
     hLayout->addWidget(filterGraphView);
-
-    filterGraphView->setStyleSheet("background-color: blue;");
 }
 
 void MainWindow::InitConnect()

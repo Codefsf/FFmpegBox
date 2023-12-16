@@ -35,6 +35,8 @@ public:
 
     void setItemName(const QString& name);
 
+    void startDrag();
+    
 protected:
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
