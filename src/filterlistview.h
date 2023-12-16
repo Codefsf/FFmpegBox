@@ -16,10 +16,10 @@ public:
     FilterListModel() = default;
     ~FilterListModel() = default;
 
-    void AddItem(const FilterItem& item);
+    void addItem(const FilterItem& item);
 
-    int GetCount() const;
-    QList<FilterItem> GetItems();
+    int getCount() const;
+    QList<FilterItem> getItems();
 
 private:
     QList<FilterItem> m_items;
@@ -36,7 +36,7 @@ public:
     void setItemName(const QString& name);
 
     void startDrag();
-    
+
 protected:
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
@@ -54,8 +54,8 @@ public:
     FilterListView(QWidget *parent = nullptr);
     ~FilterListView();
 
-    void SetModel(const FilterListModel& model);
-    void InitUi();
+    void setModel(const FilterListModel& model);
+    void initUi();
 
 private slots:
     void onSearchTextChanged(const QString& text);

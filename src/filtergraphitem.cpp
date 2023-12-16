@@ -51,7 +51,7 @@ void FilterGraphItem::initUi()
     label->setAlignment(Qt::AlignCenter);
     label->setWordWrap(true);
     label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-    
+
     auto *layout = new QVBoxLayout(this);
     layout->addWidget(label);
     setLayout(layout);
@@ -69,7 +69,7 @@ void FilterGraphItem::contextMenuEvent(QContextMenuEvent *event)
 
     if (selectedAction == removeAction)
     {
-        // remove this item
+        deleteLater();
     }
     else if (selectedAction == markAction)
     {

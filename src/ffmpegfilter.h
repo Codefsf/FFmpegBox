@@ -20,13 +20,13 @@ public:
     FFmpegFilter();
     ~FFmpegFilter();
 
-    static std::vector<std::string> GetAllFilter();
+    static std::vector<std::string> getAllFilter();
 
-    void Init(const std::string& filter_desc);
-    void Uninit();
+    void init(const std::string& filter_desc);
+    void unInit();
 
-    void SetInput(AVFrame *frame);
-    AVFrame *GetOutput();
+    void setInput(AVFrame *frame);
+    AVFrame *getOutput();
 
 private:
     AVFilterGraph *filterGraph;

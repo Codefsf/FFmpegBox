@@ -13,20 +13,20 @@
 #include <QLineEdit>
 
 //----------FilterListModel----------
-void FilterListModel::AddItem(const FilterItem& item) {
+void FilterListModel::addItem(const FilterItem& item) {
     m_items.append(item);
 }
 
-int FilterListModel::GetCount() const {
+int FilterListModel::getCount() const {
     return m_items.size();
 }
 
-QList<FilterItem> FilterListModel::GetItems() {
+QList<FilterItem> FilterListModel::getItems() {
     if (!m_items.isEmpty()) {
         return m_items;
     }
 
-    auto filtersList = FFmpegFilter::GetAllFilter();
+    auto filtersList = FFmpegFilter::getAllFilter();
     for (auto& filter : filtersList) {
         FilterItem item;
         item.name = QString::fromStdString(filter);
@@ -88,11 +88,11 @@ FilterListView::~FilterListView()
 {
 }
 
-void FilterListView::SetModel(const FilterListModel& model) {
+void FilterListView::setModel(const FilterListModel& model) {
     m_model = model;    
 }
 
-void FilterListView::InitUi() {
+void FilterListView::initUi() {
     setFixedWidth(200);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
@@ -114,11 +114,11 @@ void FilterListView::InitUi() {
     m_listWidget->setStyleSheet("border: 0px;");
     mainLayout->addWidget(m_listWidget);
 
-    for(auto& item : m_model.GetItems()) {
+    for(auto& item : m_model.getItems()) {
         addItem(item);
     }
 
-    QLabel *label = new QLabel(QString("Total: %1").arg(m_model.GetCount()), this);
+    QLabel *label = new QLabel(QString("Total: %1").arg(m_model.getCount()), this);
     label->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(label);
 
@@ -137,7 +137,7 @@ void FilterListView::onSearchTextChanged(const QString& text) {
     if (text.isEmpty())
     {
         m_listWidget->clear();
-        for(auto& item : m_model.GetItems()) {
+        for(auto& item : m_model.getItems()) {
             addItem(item);
         }
         return;
@@ -145,7 +145,7 @@ void FilterListView::onSearchTextChanged(const QString& text) {
     
     m_listWidget->clear();
 
-    for(auto& item : m_model.GetItems()) {
+    for(auto& item : m_model.getItems()) {
         if (item.name.contains(text, Qt::CaseInsensitive)) {
             addItem(item);
         }

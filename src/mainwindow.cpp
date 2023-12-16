@@ -13,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    InitUi();
-    InitConnect();
+    initUi();
+    initConnect();
 }
 
 MainWindow::~MainWindow()
@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::InitUi()
+void MainWindow::initUi()
 {
     setWindowTitle("FFmpegBox");
     setMinimumSize(800, 600);
@@ -30,7 +30,7 @@ void MainWindow::InitUi()
     QHBoxLayout* hLayout = new QHBoxLayout(ui->centralwidget);
 
     FilterListView* filterListView = new FilterListView(ui->centralwidget);
-    filterListView->InitUi();
+    filterListView->initUi();
 
     hLayout->addWidget(filterListView);
 
@@ -44,5 +44,5 @@ void MainWindow::InitUi()
     hLayout->addWidget(filterGraphView);
 }
 
-void MainWindow::InitConnect()
+void MainWindow::initConnect()
 {}

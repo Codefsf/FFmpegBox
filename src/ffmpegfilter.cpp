@@ -16,10 +16,10 @@ FFmpegFilter::FFmpegFilter()
 
 FFmpegFilter::~FFmpegFilter()
 {
-    Uninit();
+    unInit();
 }
 
-std::vector<std::string> FFmpegFilter::GetAllFilter()
+std::vector<std::string> FFmpegFilter::getAllFilter()
 {
     std::vector<std::string> filters;
     const AVFilter* filter = nullptr;
@@ -33,11 +33,11 @@ std::vector<std::string> FFmpegFilter::GetAllFilter()
     return filters;
 }
 
-void FFmpegFilter::Init(const std::string& filter_desc)
+void FFmpegFilter::init(const std::string& filter_desc)
 {
 }
 
-void FFmpegFilter::Uninit()
+void FFmpegFilter::unInit()
 {
     if (filterGraph != nullptr)
     {
@@ -82,12 +82,12 @@ void FFmpegFilter::Uninit()
     }
 }
 
-void FFmpegFilter::SetInput(AVFrame *frame)
+void FFmpegFilter::setInput(AVFrame *frame)
 {
     this->frame = frame;
 }
 
-AVFrame* FFmpegFilter::GetOutput()
+AVFrame* FFmpegFilter::getOutput()
 {
     return filtFrame;
 }
