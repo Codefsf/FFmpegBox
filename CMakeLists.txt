@@ -50,6 +50,9 @@ if(WIN32)
 
         src/filtergraphview.h
         src/filtergraphview.cpp
+
+        src/filtergraphitem.h
+        src/filtergraphitem.cpp
     )
     source_group("" FILES ${global})
 

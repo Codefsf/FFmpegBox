@@ -10,8 +10,6 @@ public:
     FilterGraphView(QWidget *parent = nullptr);
     ~FilterGraphView();
 
-    void initUi();
-
 private:
     void addItem(const QString& name);
     void deleteItem(const QString& name);
@@ -25,7 +23,6 @@ protected:
 
 private:
     QWidget* m_draggedWidget { nullptr };
-    QList<QWidget*> m_items;
     bool m_dragging { false };
     QPoint m_lastPos;
 };

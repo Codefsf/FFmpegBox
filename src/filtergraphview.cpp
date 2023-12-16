@@ -1,4 +1,5 @@
 #include "filtergraphview.h"
+#include "filtergraphitem.h"
 
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -15,34 +16,17 @@ FilterGraphView::~FilterGraphView()
 {
 }
 
-void FilterGraphView::initUi()
-{
-}
-
 void FilterGraphView::addItem(const QString &name)
 {
-    QWidget *item = new QWidget(this);
-    item->setObjectName(name);
-    item->setFixedSize(50, 50);
-    item->setStyleSheet(
-        "background-color: red;"
-        "border: 2px solid rgb(0, 0, 0);"
-        "border-radius: 10px;"
-        "color: rgb(255, 255, 255);"
-    );
-    QLabel *label = new QLabel(name, item);
-    label->setAttribute(Qt::WA_TransparentForMouseEvents);
-    label->setAlignment(Qt::AlignCenter);
-    label->setWordWrap(true);
-    label->setFixedSize(item->size());
+    auto *item = new FilterGraphItem(this);
+    item->setInfo({name, SizeType_Small});
+    item->initUi();
 
     QPoint globalMousePos = QCursor::pos();
     QPoint localMousePos = this->mapFromGlobal(globalMousePos);
     item->move(localMousePos);
 
     item->show();
-
-    m_items.append(item);
 }
 
 void FilterGraphView::deleteItem(const QString &name)
