@@ -41,7 +41,7 @@ void MainWindow::InitUi()
     hLayout->addWidget(line); 
 
     FilterGraphView* filterGraphView = new FilterGraphView(ui->centralwidget);
-    filterGraphView->InitUi();
+    filterGraphView->initUi();
     hLayout->addWidget(filterGraphView);
 }
 

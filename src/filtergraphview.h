@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QWidget>
 
 class FilterGraphView : public QWidget
@@ -8,7 +10,7 @@ public:
     FilterGraphView(QWidget *parent = nullptr);
     ~FilterGraphView();
 
-    void InitUi();
+    void initUi();
 
 private:
     void addItem(const QString& name);
@@ -22,8 +24,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
-    QWidget* m_draggedWidget  = nullptr;
+    QWidget* m_draggedWidget { nullptr };
     QList<QWidget*> m_items;
-    bool m_dragging;
+    bool m_dragging { false };
     QPoint m_lastPos;
 };

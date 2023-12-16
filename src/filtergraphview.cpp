@@ -15,7 +15,7 @@ FilterGraphView::~FilterGraphView()
 {
 }
 
-void FilterGraphView::InitUi()
+void FilterGraphView::initUi()
 {
 }
 
@@ -24,8 +24,12 @@ void FilterGraphView::addItem(const QString &name)
     QWidget *item = new QWidget(this);
     item->setObjectName(name);
     item->setFixedSize(50, 50);
-    item->setStyleSheet("background-color: red; border: 1px solid rgb(0, 0, 0);color: rgb(255, 255, 255);");
-
+    item->setStyleSheet(
+        "background-color: red;"
+        "border: 2px solid rgb(0, 0, 0);"
+        "border-radius: 10px;"
+        "color: rgb(255, 255, 255);"
+    );
     QLabel *label = new QLabel(name, item);
     label->setAttribute(Qt::WA_TransparentForMouseEvents);
     label->setAlignment(Qt::AlignCenter);
@@ -49,7 +53,6 @@ void FilterGraphView::dragEnterEvent(QDragEnterEvent *event)
 {
     if (event->mimeData()->hasFormat("text/plain"))
     {
-        qDebug() << "dragEnterEvent";
         event->acceptProposedAction();
     }
 }
@@ -62,7 +65,6 @@ void FilterGraphView::dropEvent(QDropEvent *event)
         return;
     }
 
-    qDebug() << "dropEvent ：" << content[0];
     event->acceptProposedAction();
 
     addItem(content[0]);
