@@ -31,8 +31,6 @@ public:
     void setInfo(const FilterGraphItemInfo& info);
     void setItemName(const QString& name);
 
-
-
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 

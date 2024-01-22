@@ -53,6 +53,9 @@ if(WIN32)
 
         src/filtergraphitem.h
         src/filtergraphitem.cpp
+
+        src/filtercompareview.h
+        src/filtercompareview.cpp
     )
     source_group("" FILES ${global})
 

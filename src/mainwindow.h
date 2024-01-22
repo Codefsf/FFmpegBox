@@ -19,6 +19,10 @@ public:
     void initConnect();
 
 private:
+    void initFilterListView();
+    void initFilterCompareView();
+
+private:
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

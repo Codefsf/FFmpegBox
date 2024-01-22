@@ -63,16 +63,11 @@ void FilterGraphItem::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu(this);
     QAction *removeAction = menu.addAction("Remove");
-    QAction *markAction = menu.addAction("Mark");
 
     QAction *selectedAction = menu.exec(event->globalPos());
 
     if (selectedAction == removeAction)
     {
         deleteLater();
-    }
-    else if (selectedAction == markAction)
-    {
-        // mark this item
     }
 }
