@@ -66,12 +66,19 @@ void MainWindow::initFilterCompareView()
 
     vLayout->addWidget(filterCompareView);
 
-    QPushButton *btn = new QPushButton("Start", ui->centralwidget);
-    btn->setFixedSize(100, 30);
-    vLayout->addWidget(btn);
+    QPushButton *btnStart = new QPushButton("Start", ui->centralwidget);
+    QPushButton *btnStop = new QPushButton("Stop", ui->centralwidget);
 
-    connect(btn, &QPushButton::clicked, [filterCompareView](){
+    btnStart->setFixedSize(100, 30);
+    btnStop->setFixedSize(100, 30);
+    vLayout->addWidget(btnStart);
+    vLayout->addWidget(btnStop);
+
+    connect(btnStart, &QPushButton::clicked, [filterCompareView](){
         filterCompareView->start();
+    });
+    connect(btnStop, &QPushButton::clicked, [filterCompareView](){
+        filterCompareView->stop();
     });
 }
 

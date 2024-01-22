@@ -35,6 +35,12 @@ std::vector<std::string> FFmpegFilter::getAllFilter()
 
 void FFmpegFilter::init(const std::string& filter_desc)
 {
+    if (filter_desc.empty())
+    {
+        return;
+    }
+
+    int ret = 0;
 }
 
 void FFmpegFilter::unInit()

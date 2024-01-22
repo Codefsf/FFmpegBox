@@ -1,4 +1,5 @@
 #include "filtercompareview.h"
+#include "ffmpegfilter.h"
 
 #include <QHBoxLayout>
 #include <QSplitter>
@@ -11,7 +12,12 @@ FilterCompareView::FilterCompareView(QWidget *parent) :
 
 FilterCompareView::~FilterCompareView()
 {
-    
+    if (m_filter != nullptr)
+    {
+        m_filter->unInit();
+        delete m_filter;
+        m_filter = nullptr;
+    }
 }
 
 void FilterCompareView::initUi()
@@ -30,7 +36,18 @@ void FilterCompareView::initUi()
     setLayout(layout);
 }
 
+void FilterCompareView::initData()
+{
+    m_filter = new FFmpegFilter();
+    m_filter->init("nullsrc");
+}
+
 void FilterCompareView::start()
+{
+    
+}
+
+void FilterCompareView::stop()
 {
     
 }
