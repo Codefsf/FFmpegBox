@@ -2,7 +2,9 @@
 
 #include <QWidget>
 
+
 class FFmpegFilter;
+class FFmpegFormat;
 
 class FilterCompareView : public QWidget
 {
@@ -15,12 +17,13 @@ public:
     void initUi();
     void initData();
 
-    void start();
+    int start();
     void stop();
 
 private:
-    QWidget *m_inputWidget  = nullptr;
-    QWidget *m_outputWidget = nullptr;
+    QWidget *m_inputWidget {nullptr};
+    QWidget *m_outputWidget {nullptr};
 
-    FFmpegFilter *m_filter  = nullptr;
+    FFmpegFilter *m_filter {nullptr};
+    FFmpegFormat *m_format {nullptr};
 };

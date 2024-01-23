@@ -1,5 +1,8 @@
 #include "filtercompareview.h"
 #include "ffmpegfilter.h"
+#include "ffmpegformat.h"
+
+#include <iostream>
 
 #include <QHBoxLayout>
 #include <QSplitter>
@@ -17,6 +20,13 @@ FilterCompareView::~FilterCompareView()
         m_filter->unInit();
         delete m_filter;
         m_filter = nullptr;
+    }
+
+    if (m_format != nullptr)
+    {
+        m_format->unInit();
+        delete m_format;
+        m_format = nullptr;
     }
 }
 
@@ -40,11 +50,36 @@ void FilterCompareView::initData()
 {
     m_filter = new FFmpegFilter();
     m_filter->init("nullsrc");
+
+    m_format = new FFmpegFormat();
+    m_format->init();
 }
 
-void FilterCompareView::start()
+int FilterCompareView::start()
 {
+    std::cout << "FilterCompareView::start" << std::endl;
+
+    int ret = 0;
+    if (!m_filter)
+    {
+        std::cout << "m_filter is nullptr" << std::endl;
+        return -1;
+    }
     
+    if (!m_format)
+    {
+        std::cout << "m_format is nullptr" << std::endl;
+        return -1;
+    }
+    
+    ret = m_format->openInput("test.mp4");
+    if (ret < 0)
+    {
+        std::cout << "m_format->openInput failed, error code: " << ret << std::endl;
+        return ret;
+    }
+
+    return 0;
 }
 
 void FilterCompareView::stop()

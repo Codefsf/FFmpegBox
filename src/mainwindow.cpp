@@ -63,6 +63,7 @@ void MainWindow::initFilterCompareView()
 
     FilterCompareView* filterCompareView = new FilterCompareView(ui->centralwidget);
     filterCompareView->initUi();
+    filterCompareView->initData();
 
     vLayout->addWidget(filterCompareView);
 

@@ -45,6 +45,9 @@ if(WIN32)
         src/ffmpegfilter.cpp
         src/ffmpegfilter.h
 
+        src/ffmpegformat.h
+        src/ffmpegformat.cpp
+
         src/filterlistview.h
         src/filterlistview.cpp
 
