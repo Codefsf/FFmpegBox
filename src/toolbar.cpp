@@ -9,6 +9,13 @@ Toolbar::~Toolbar()
 {
 }
 
+void Toolbar::init()
+{
+    initData();
+    initUi();
+    initConnect();
+}
+
 void Toolbar::initData()
 {
     if (!toolButtons.empty())
@@ -18,15 +25,19 @@ void Toolbar::initData()
 
     auto buttonAdd = new QToolButton(this);
     buttonAdd->setProperty("toolName", "add");
+    buttonAdd->setText("Add");
 
     auto buttonDel = new QToolButton(this);
     buttonDel->setProperty("toolName", "del");
+    buttonDel->setText("Del");
 
     auto buttonRun = new QToolButton(this);
     buttonRun->setProperty("toolName", "run");
+    buttonRun->setText("Run");
 
     auto buttonStop = new QToolButton(this);
     buttonStop->setProperty("toolName", "stop");
+    buttonStop->setText("Stop");
 
     toolButtons.append(buttonAdd);
     toolButtons.append(buttonDel);

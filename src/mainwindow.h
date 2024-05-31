@@ -7,6 +7,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class Toolbar;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -25,5 +26,6 @@ private:
 
 private:
     Ui::MainWindow *ui;
+    Toolbar* toolbar {nullptr};
 };
 #endif // MAINWINDOW_H

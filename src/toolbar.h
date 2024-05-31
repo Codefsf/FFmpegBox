@@ -11,6 +11,8 @@ public:
     Toolbar(QWidget *parent = nullptr);
     ~Toolbar();
 
+    void init();
+    
     void initData();
     void initUi();
     void initConnect();

@@ -3,6 +3,7 @@
 #include "filterlistview.h"
 #include "filtergraphview.h"
 #include "filtercompareview.h"
+#include "toolbar.h"
 
 #include <iostream>
 
@@ -38,6 +39,8 @@ void MainWindow::initUi()
 #elif defined(FILTER_COMPARE_VIEW)
     initFilterCompareView();
 #endif
+
+    
 }
 
 void MainWindow::initFilterListView()
@@ -69,20 +72,23 @@ void MainWindow::initFilterCompareView()
 
     vLayout->addWidget(filterCompareView);
 
-    QPushButton *btnStart = new QPushButton("Start", ui->centralwidget);
-    QPushButton *btnStop = new QPushButton("Stop", ui->centralwidget);
+    // QPushButton *btnStart = new QPushButton("Start", ui->centralwidget);
+    // QPushButton *btnStop = new QPushButton("Stop", ui->centralwidget);
+    // btnStart->setFixedSize(100, 30);
+    // btnStop->setFixedSize(100, 30);
+    // vLayout->addWidget(btnStart);
+    // vLayout->addWidget(btnStop);
 
-    btnStart->setFixedSize(100, 30);
-    btnStop->setFixedSize(100, 30);
-    vLayout->addWidget(btnStart);
-    vLayout->addWidget(btnStop);
+    // connect(btnStart, &QPushButton::clicked, [filterCompareView](){
+    //     filterCompareView->start();
+    // });
+    // connect(btnStop, &QPushButton::clicked, [filterCompareView](){
+    //     filterCompareView->stop();
+    // });
 
-    connect(btnStart, &QPushButton::clicked, [filterCompareView](){
-        filterCompareView->start();
-    });
-    connect(btnStop, &QPushButton::clicked, [filterCompareView](){
-        filterCompareView->stop();
-    });
+    toolbar = new Toolbar(this);
+    toolbar->init();
+    vLayout->addWidget(toolbar);
 }
 
 void MainWindow::initTestView()
