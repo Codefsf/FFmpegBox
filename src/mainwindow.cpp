@@ -4,6 +4,8 @@
 #include "filtergraphview.h"
 #include "filtercompareview.h"
 
+#include <iostream>
+
 #include <QUrl>
 #include <QHBoxLayout>
 #include <QFrame>
@@ -80,6 +82,26 @@ void MainWindow::initFilterCompareView()
     });
     connect(btnStop, &QPushButton::clicked, [filterCompareView](){
         filterCompareView->stop();
+    });
+}
+
+void MainWindow::initTestView()
+{
+    QVBoxLayout* vLayout = new QVBoxLayout(ui->centralwidget);
+
+    QPushButton *btnStart = new QPushButton("Start", ui->centralwidget);
+    QPushButton *btnStop = new QPushButton("Stop", ui->centralwidget);
+
+    btnStart->setFixedSize(100, 30);
+    btnStop->setFixedSize(100, 30);
+    vLayout->addWidget(btnStart);
+    vLayout->addWidget(btnStop);
+
+    connect(btnStart, &QPushButton::clicked, [](){
+        std::cout << "btnStart clicked" << std::endl;
+    });
+    connect(btnStop, &QPushButton::clicked, [](){
+        std::cout << "btnStop clicked" << std::endl;
     });
 }
 

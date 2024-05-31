@@ -21,6 +21,7 @@ public:
 private:
     void initFilterListView();
     void initFilterCompareView();
+    void initTestView();
 
 private:
     Ui::MainWindow *ui;

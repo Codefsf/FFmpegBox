@@ -42,6 +42,9 @@ if(WIN32)
         src/mainwindow.h
         src/mainwindow.ui
 
+        src/toolbar.h
+        src/toolbar.cpp
+
         src/ffmpegfilter.cpp
         src/ffmpegfilter.h
 
