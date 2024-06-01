@@ -72,23 +72,21 @@ void MainWindow::initFilterCompareView()
 
     vLayout->addWidget(filterCompareView);
 
-    // QPushButton *btnStart = new QPushButton("Start", ui->centralwidget);
-    // QPushButton *btnStop = new QPushButton("Stop", ui->centralwidget);
-    // btnStart->setFixedSize(100, 30);
-    // btnStop->setFixedSize(100, 30);
-    // vLayout->addWidget(btnStart);
-    // vLayout->addWidget(btnStop);
-
-    // connect(btnStart, &QPushButton::clicked, [filterCompareView](){
-    //     filterCompareView->start();
-    // });
-    // connect(btnStop, &QPushButton::clicked, [filterCompareView](){
-    //     filterCompareView->stop();
-    // });
-
     toolbar = new Toolbar(this);
     toolbar->init();
     vLayout->addWidget(toolbar);
+
+    connect(toolbar, &Toolbar::toolButtonClicked, [filterCompareView](const QString& toolName){
+        std::cout << "toolName: " << toolName.toStdString() << std::endl;
+        if (toolName == "start")
+        {
+            filterCompareView->start();
+        }
+        else if (toolName == "stop")
+        {
+            filterCompareView->stop();
+        }
+    });
 }
 
 void MainWindow::initTestView()

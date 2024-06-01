@@ -7,15 +7,19 @@
 
 class Toolbar : public QWidget
 {
+    Q_OBJECT
 public:
     Toolbar(QWidget *parent = nullptr);
     ~Toolbar();
 
     void init();
-    
+
     void initData();
     void initUi();
     void initConnect();
+
+signals:
+    void toolButtonClicked(const QString& toolName);
 
 public slots:
     void onToolButtonClicked();

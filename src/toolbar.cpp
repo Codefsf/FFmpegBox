@@ -31,9 +31,9 @@ void Toolbar::initData()
     buttonDel->setProperty("toolName", "del");
     buttonDel->setText("Del");
 
-    auto buttonRun = new QToolButton(this);
-    buttonRun->setProperty("toolName", "run");
-    buttonRun->setText("Run");
+    auto buttonStart = new QToolButton(this);
+    buttonStart->setProperty("toolName", "start");
+    buttonStart->setText("Start");
 
     auto buttonStop = new QToolButton(this);
     buttonStop->setProperty("toolName", "stop");
@@ -41,7 +41,7 @@ void Toolbar::initData()
 
     toolButtons.append(buttonAdd);
     toolButtons.append(buttonDel);
-    toolButtons.append(buttonRun);
+    toolButtons.append(buttonStart);
     toolButtons.append(buttonStop);    
 }
 
@@ -51,6 +51,9 @@ void Toolbar::initUi()
     {
         hLayout = new QHBoxLayout(this);
     }
+
+    this->setStyleSheet("background-color: grey;");
+    this->setFixedHeight(50);
 
     initToolButtons();
 
@@ -70,6 +73,8 @@ void Toolbar::initToolButtons()
     if (hLayout == nullptr)
     {
         hLayout = new QHBoxLayout(this);
+        hLayout->setSpacing(20);
+        hLayout->setAlignment(Qt::AlignCenter);
     }
 
     if (toolButtons.empty())
@@ -77,10 +82,12 @@ void Toolbar::initToolButtons()
         return;
     }
     
+    hLayout->addStretch();
     for (auto button : toolButtons)
     {
         hLayout->addWidget(button);
     }
+    hLayout->addStretch();
 }
 
 void Toolbar::onToolButtonClicked()
@@ -92,22 +99,13 @@ void Toolbar::onToolButtonClicked()
     }
 
     QString toolName = button->property("toolName").toString();
-    if (toolName == "add")
+    if (toolName.isEmpty())
     {
-        qDebug() << "Add button clicked";
+        return;
     }
-    else if (toolName == "del")
-    {
-        qDebug() << "Del button clicked";
-    }
-    else if (toolName == "run")
-    {
-        qDebug() << "Run button clicked";
-    }
-    else if (toolName == "stop")
-    {
-        qDebug() << "Stop button clicked";
-    }
+
+    qDebug() << "Tool button clicked: " << toolName;
+    emit toolButtonClicked(toolName);
 }
 
 
