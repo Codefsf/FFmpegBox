@@ -122,5 +122,8 @@ int FFmpegFormat::openInput(const char *filename)
     }
 
     std::cout << "open input success" << std::endl;
+
+    avformat_close_input(&m_formatCtx);
+
     return 0;
 }

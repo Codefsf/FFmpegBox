@@ -62,6 +62,9 @@ if(WIN32)
 
         src/filtercompareview.h
         src/filtercompareview.cpp
+
+        src/tablebox.h
+        src/tablebox.cpp
     )
     source_group("" FILES ${global})
 
