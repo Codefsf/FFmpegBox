@@ -39,6 +39,7 @@ void TableBox::initUi()
     hLayout->addWidget(delRowBtn);
 
     m_tableView = new QTableWidget(this);
+    m_tableView->installEventFilter(this);
 
     QVBoxLayout* vLayout = new QVBoxLayout(this);
     vLayout->addLayout(hLayout);
@@ -80,6 +81,64 @@ void TableBox::initData()
 
 void TableBox::initConnect()
 {
+}
+
+void TableBox::contextMenuEvent(QContextMenuEvent* event)
+{
+    QMenu menu(this);
+    QAction* clearAction = menu.addAction("Clear");
+    QAction* copyAction = menu.addAction("Copy");
+
+    connect(clearAction, &QAction::triggered, [&]() {
+        QTableWidgetItem* item = 
+            m_tableView->itemAt(m_tableView->mapFromGlobal(event->globalPos()));
+        if (item != nullptr)
+        {
+            item->setText("");
+        }
+    });
+
+    connect(copyAction, &QAction::triggered, [&]() {
+        QTableWidgetItem* item = 
+            m_tableView->itemAt(m_tableView->mapFromGlobal(event->globalPos()));
+        if (item != nullptr)
+        {
+            QApplication::clipboard()->setText(item->text());
+        }
+    });
+
+    menu.exec(event->globalPos());
+}
+
+bool TableBox::eventFilter(QObject* watched, QEvent* event)
+{
+    if (watched == m_tableView)
+    {
+        if (event->type() == QEvent::KeyPress)
+        {
+            QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+            if (keyEvent->matches(QKeySequence::Copy))
+            {
+                QTableWidgetItem* item = m_tableView->currentItem();
+                if (item != nullptr)
+                {
+                    QApplication::clipboard()->setText(item->text());
+                    qDebug() << "Copy";
+                }
+            }
+            else if (keyEvent->matches(QKeySequence::Paste))
+            {
+                QTableWidgetItem* item = m_tableView->currentItem();
+                if (item != nullptr)
+                {
+                    item->setText(QApplication::clipboard()->text());
+                    qDebug() << "Paste";
+                }
+            }
+        }
+    }
+
+    return QWidget::eventFilter(watched, event);
 }
 
 void TableBox::addColumn()

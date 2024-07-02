@@ -20,6 +20,10 @@ public:
     void initData();
     void initConnect();
 
+protected:
+    void contextMenuEvent(QContextMenuEvent* event) override;
+    bool eventFilter(QObject* watched, QEvent* event) override;
+
 private slots:
     void addColumn();
     void delColumn();

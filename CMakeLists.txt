@@ -65,6 +65,23 @@ if(WIN32)
 
         src/tablebox.h
         src/tablebox.cpp
+
+        src/paintbox.h
+        src/paintbox.cpp
+
+        src/treebox.h
+        src/treebox.cpp
+
+        src/launchwindow.h
+        src/launchwindow.cpp
+
+        src/containerbox.h
+        src/containerbox.cpp
+
+        src/containerboxpaint.h
+        src/containerboxpaint.cpp
+
+        src/cplusplus/container.hpp
     )
     source_group("" FILES ${global})
 
